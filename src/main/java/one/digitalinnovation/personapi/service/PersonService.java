@@ -9,6 +9,7 @@ import one.digitalinnovation.personapi.mapper.PersonMapper;
 import one.digitalinnovation.personapi.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,6 +65,14 @@ public class PersonService {
         return MessageResponseDTO
                 .builder()
                 .message(message + id)
+                .build();
+    }
+
+    public MessageResponseDTO createPerson(Person person) {
+        Person savedPerson = personRepository.save(person);
+        return MessageResponseDTO
+                .builder()
+                .message("Created person with ID " + savedPerson.getId())
                 .build();
     }
 }
