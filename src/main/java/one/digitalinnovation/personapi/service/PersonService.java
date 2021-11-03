@@ -15,10 +15,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+//@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonService {
 
     private PersonRepository personRepository;
+
+    @Autowired
+    public PersonService(PersonRepository personRepository){
+        this.personRepository = personRepository;
+    }
 
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
@@ -68,11 +73,19 @@ public class PersonService {
                 .build();
     }
 
-    public MessageResponseDTO createPerson(Person person) {
-        Person savedPerson = personRepository.save(person);
+    /*public MessageResponseDTO createPerson2(PersonDTO personDTO) {
+
+        Person personToSave = Person.builder()
+                .firstName(personDTO.getFirstName())
+                .lastName(personDTO.getLastName())
+                .birthDate(personDTO.getBirthDate())
+                .phones(personDTO.getPhones())
+                .build();
+
+        Person savedPerson = personRepository.save(personToSave);
         return MessageResponseDTO
                 .builder()
                 .message("Created person with ID " + savedPerson.getId())
                 .build();
-    }
+    }*/
 }
